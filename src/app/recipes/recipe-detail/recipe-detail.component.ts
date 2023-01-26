@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { RecipeService } from 'src/app/services/recipe.service';
 import { Recipe } from '../recipe.model';
@@ -15,13 +15,16 @@ export class RecipeDetailComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     /* With this observable method we can react any changes route params */
     this.route.params.subscribe((params: Params) => {
+      /* get id / index from URL */
       this.id = +params['id'];
+      /* So we can get recipe with this id / index */
       this.recipeDetail = this.recipeService.getRecipe(this.id);
     });
   }
@@ -31,5 +34,10 @@ export class RecipeDetailComponent implements OnInit {
     this.recipeService.addIngrediendToShoppingList(
       this.recipeDetail.ingredients
     );
+  }
+
+  onEditRecipe() {
+    // this.router.navigate(['edit'], { relativeTo: this.route });
+    this.router.navigate(['../', this.id, 'edit'], { relativeTo: this.route });
   }
 }

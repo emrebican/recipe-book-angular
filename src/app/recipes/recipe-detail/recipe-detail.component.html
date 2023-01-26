@@ -27,7 +27,11 @@
             >To Shopping List</a
           >
         </li>
-        <li><a [ngStyle]="{ cursor: 'pointer' }">Edit Recipe</a></li>
+        <li>
+          <a [ngStyle]="{ cursor: 'pointer' }" (click)="onEditRecipe()"
+            >Edit Recipe</a
+          >
+        </li>
         <li><a [ngStyle]="{ cursor: 'pointer' }">Delete Recipe</a></li>
       </ul>
     </div>
