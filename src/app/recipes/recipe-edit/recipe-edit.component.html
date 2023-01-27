@@ -1,1 +1,142 @@
-<p>recipe-edit works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xs-12" [ngStyle]="{ marginBottom: '10px' }">
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [ngStyle]="{ marginRight: '8px' }"
+            [disabled]="!recipeForm.valid"
+          >
+            Save
+          </button>
+          <button
+            class="btn btn-danger"
+            type="button"
+            (click)="onCancel()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              formControlName="name"
+            />
+            <span
+              class="help-block text-muted"
+              *ngIf="
+                recipeForm.get('name').invalid &&
+                recipeForm.get('name').touched
+              "
+              >Type a valid name!</span
+            >
+          </div>
+          <div class="form-group">
+            <label for="image">Image Url</label>
+            <input
+              type="text"
+              id="image"
+              class="form-control"
+              formControlName="imageURL"
+              #imagePath
+            />
+            <span
+              class="help-block text-muted"
+              *ngIf="
+                recipeForm.get('imageURL').invalid &&
+                recipeForm.get('imageURL').touched
+              "
+              >Type a valid image url!</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <img
+            [src]="imagePath.value"
+            class="img-responsive rounded"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              rows="6"
+              formControlName="description"
+            ></textarea>
+            <span
+              class="help-block text-muted"
+              *ngIf="
+                recipeForm.get('description').invalid &&
+                recipeForm.get('description').touched
+              "
+              >Type a valid description!</span
+            >
+          </div>
+        </div>
+      </div>
+      <!-- Ingredients start -->
+      <div class="row">
+        <div class="col-xs-12" formArrayName="ingredients">
+          <label>Ingredients</label>
+          <div
+            class="row"
+            [ngStyle]="{ marginBottom: '10px' }"
+            *ngFor="let ingredirent of ingredients; let i = index"
+            [formGroupName]="i"
+          >
+            <div class="col-xs-7">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+              />
+            </div>
+            <div class="col-xs-3">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="amount"
+              />
+            </div>
+            <div class="col-xs-2">
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="onDeleteIngredient(i)"
+              >
+                X
+              </button>
+            </div>
+          </div>
+          <!-- Add new Ingredient -->
+          <div class="row">
+            <div class="col-xs-12">
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="onAddIngredient()"
+              >
+                Add Ingredient
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Ingredients end -->
+    </form>
+  </div>
+</div>

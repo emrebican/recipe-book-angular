@@ -8,6 +8,7 @@ import { Ingredient } from '../shared/ingredient.model';
 @Injectable()
 export class RecipeService {
   recipeSelected = new Subject<Recipe>();
+  recipesChanged = new Subject<Recipe[]>();
 
   /* PRIVATE: Avoiding to access the array from outside directly */
   private recipes: Recipe[] = [
@@ -38,5 +39,20 @@ export class RecipeService {
 
   addIngrediendToShoppingList(ingredients: Ingredient[]) {
     this.shoppingListService.addIngredients(ingredients);
+  }
+
+  addRecipe(newRecipe: Recipe) {
+    this.recipes.push(newRecipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(index: number, updatedRecipe: Recipe) {
+    this.recipes[index] = updatedRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice());
   }
 }

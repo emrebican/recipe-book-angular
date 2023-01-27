@@ -20,9 +20,7 @@ import { Ingredient } from 'src/app/shared/ingredient.model';
   templateUrl: './shopping-edit.component.html',
   styleUrls: ['./shopping-edit.component.css']
 })
-export class ShoppingEditComponent
-  implements OnInit, OnDestroy
-{
+export class ShoppingEditComponent implements OnInit, OnDestroy {
   editIndexSubscription: Subscription;
 
   addForm: FormGroup;
@@ -41,10 +39,7 @@ export class ShoppingEditComponent
       name: [null, Validators.required],
       amount: [
         null,
-        [
-          Validators.required,
-          Validators.pattern('^[1-9]+[0-9]*$')
-        ]
+        [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
       ]
     });
 
@@ -57,9 +52,7 @@ export class ShoppingEditComponent
 
           // get edited Item
           this.editedItem =
-            this.shoppingListService.getIngredient(
-              editIndex
-            );
+            this.shoppingListService.getIngredient(editIndex);
 
           // set addForm according to editedItem
           this.addForm.setValue({
@@ -96,9 +89,7 @@ export class ShoppingEditComponent
   }
 
   onDelete() {
-    this.shoppingListService.deleteIngredient(
-      this.editedItemIndex
-    );
+    this.shoppingListService.deleteIngredient(this.editedItemIndex);
     this.editMode = false;
     this.addForm.reset();
   }

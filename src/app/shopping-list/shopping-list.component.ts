@@ -1,8 +1,4 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ShoppingListService } from '../services/shopping-list.service';
 import { Ingredient } from '../shared/ingredient.model';
@@ -12,19 +8,14 @@ import { Ingredient } from '../shared/ingredient.model';
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.css']
 })
-export class ShoppingListComponent
-  implements OnInit, OnDestroy
-{
+export class ShoppingListComponent implements OnInit, OnDestroy {
   ingredients: Ingredient[] = [];
   private ingredientSubscription!: Subscription;
 
-  constructor(
-    private shoppingListService: ShoppingListService
-  ) {}
+  constructor(private shoppingListService: ShoppingListService) {}
 
   ngOnInit() {
-    this.ingredients =
-      this.shoppingListService.getIngredients();
+    this.ingredients = this.shoppingListService.getIngredients();
 
     /* We need to reRender shopping-list component when we have a new ingredient */
     this.ingredientSubscription =
