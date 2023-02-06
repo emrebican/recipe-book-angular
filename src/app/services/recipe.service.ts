@@ -11,7 +11,7 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
   /* PRIVATE: Avoiding to access the array from outside directly */
-  private recipes: Recipe[] = [
+  /* private recipes: Recipe[] = [
     new Recipe(
       'Tasty Schnitzel',
       'A super tasty Schnitzel, just awesome',
@@ -24,9 +24,18 @@ export class RecipeService {
       'https://images.immediate.co.uk/production/volatile/sites/30/2013/05/Cheeseburger-3d7c922.jpg',
       [new Ingredient('Buns', 2), new Ingredient('Meat', 1)]
     )
-  ];
+  ]; */
+  private recipes: Recipe[] = [];
 
   constructor(private shoppingListService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    // set recipes
+    this.recipes = recipes;
+
+    // Inform all related part of app that we have new recipes
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     /* with slice actually we're returning a copy of the recipes array */

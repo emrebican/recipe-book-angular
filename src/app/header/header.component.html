@@ -6,7 +6,10 @@
         class="navbar-toggle"
         (click)="collapsed = !collapsed"
       >
-        <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
+        <span
+          class="icon-bar"
+          *ngFor="let iconBar of [1, 2, 3]"
+        ></span>
       </button>
       <a routerLink="/" class="navbar-brand">Recipe Book</a>
     </div>
@@ -24,7 +27,11 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown>
+        <li
+          class="dropdown"
+          appDropdown
+          *ngIf="!isSaving && !isFetching"
+        >
           <a
             class="dropdown-toggle"
             role="button"
@@ -32,9 +39,27 @@
             >Manage <span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
-            <li><a [ngStyle]="{ cursor: 'pointer' }">Save Data</a></li>
-            <li><a [ngStyle]="{ cursor: 'pointer' }">Fetch Data</a></li>
+            <li>
+              <a
+                [ngStyle]="{ cursor: 'pointer' }"
+                (click)="onStorageRecipes()"
+                >Save Data</a
+              >
+            </li>
+            <li>
+              <a
+                [ngStyle]="{ cursor: 'pointer' }"
+                (click)="onFetchRecipes()"
+                >Fetch Data</a
+              >
+            </li>
           </ul>
+        </li>
+        <li class="dropdown" *ngIf="isSaving">
+          <a class="dropdown-toggle" role="button">Saving...</a>
+        </li>
+        <li class="dropdown" *ngIf="isFetching">
+          <a class="dropdown-toggle" role="button">Loading...</a>
         </li>
       </ul>
     </div>
