@@ -22,8 +22,11 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AlertComponent } from './shared/alert/alert.component';
 
 import { DropdownDirective } from './shared/dropdown.directive';
+import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
+
 import { ShoppingListService } from './services/shopping-list.service';
 import { RecipeService } from './services/recipe.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
@@ -41,8 +44,10 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     ShoppingEditComponent,
     RecipeEditComponent,
     AuthComponent,
+    AlertComponent,
     LoadingSpinnerComponent,
-    DropdownDirective
+    DropdownDirective,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AlertComponent]
 })
 export class AppModule {}

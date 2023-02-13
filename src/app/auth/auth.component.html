@@ -8,9 +8,15 @@
       <app-loading-spinner></app-loading-spinner>
     </div>
     <!-- error -->
-    <div class="alert alert-danger" *ngIf="error !== null">
+    <!-- <div class="alert alert-danger" *ngIf="error !== null">
       {{ error }}
-    </div>
+    </div> -->
+    <!-- <app-alert
+      [message]="error"
+      *ngIf="error"
+      (close)="onHandleClose()"
+    ></app-alert> -->
+    <ng-template appPlaceholder></ng-template>
     <!-- form -->
     <form
       (ngSubmit)="onSubmit()"
@@ -25,6 +31,14 @@
           class="form-control"
           formControlName="email"
         />
+        <span
+          class="help-block text-muted"
+          *ngIf="
+            !submittedForm.get('email').valid &&
+            submittedForm.get('email').touched
+          "
+          >Please type a valid email</span
+        >
       </div>
       <div class="form-group">
         <label for="password">Password</label>
@@ -34,6 +48,14 @@
           class="form-control"
           formControlName="password"
         />
+        <span
+          class="help-block text-muted"
+          *ngIf="
+            !submittedForm.get('password').valid &&
+            submittedForm.get('password').touched
+          "
+          >Your password must be at least 6 characters!</span
+        >
       </div>
       <div>
         <button
